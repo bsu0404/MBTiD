@@ -11,21 +11,17 @@ import "./profileCard.scss";
 
 interface ProfileCardProps {
   data: UserMbtiProfile;
-  isMine: boolean;
+  actionButton?: React.ReactNode;
+  showQr?: boolean;
 }
-const ProfileCard = ({ data, isMine }: ProfileCardProps) => {
-  const [showQr, setShowQr] = useState<boolean>(false);
+const ProfileCard = ({
+  data,
+  actionButton,
+  showQr = false,
+}: ProfileCardProps) => {
   const currentUrl = window.location.href;
 
   const image = getMbtiImageSrc(data?.mbti);
-
-  const handleButtonClick = () => {
-    if (isMine) {
-      setShowQr((prev) => !prev);
-    } else {
-      console.log("mbtid 저장");
-    }
-  };
 
   return (
     <div
@@ -34,10 +30,7 @@ const ProfileCard = ({ data, isMine }: ProfileCardProps) => {
     >
       <div className="title-wrapper">
         <h3 className="f-title2">{data?.nickname}의 MBTiD</h3>
-        <OutlineButton type="button" size="small" onClick={handleButtonClick}>
-          {isMine && showQr ? "내 MBTI 보기" : "QR로 공유하기"}
-          {!isMine && "친구의 MBTiD 보관하기"}
-        </OutlineButton>
+        {actionButton}
       </div>
       <div className="img-wrapper">
         {showQr ? (

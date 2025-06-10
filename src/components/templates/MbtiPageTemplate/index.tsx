@@ -1,3 +1,10 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  useCheckFriendQuery,
+  useCreateFriend,
+  useDeleteFriend,
+} from "@/hook/friend/useMyFriendQuery";
 import { Layout, PageLayout } from "@/components/layout/Layout";
 import ProfileCard from "@/components/card/profileCard/ProfileCard";
 import VoteResultCard from "@/components/card/voteResultCard/VoteResultCard";
@@ -5,7 +12,7 @@ import VoteList from "@/components/List/voteList/VoteList";
 import ChevronRight from "@/assets/chevron-right.svg";
 import { VoteDetail, VoteResult } from "@/types/vote";
 import { UserMbtiProfile } from "@/types/profile";
-import { useNavigate } from "react-router-dom";
+import ProfileCardActionButton from "@/components/button/profileCardActionButton.tsx/ProfileCardActionButton";
 import "./mbtiPageTemplate.scss";
 
 interface MbtiPageTemplateProps {
@@ -13,7 +20,6 @@ interface MbtiPageTemplateProps {
   voteResult: VoteResult | null;
   voteList: VoteDetail[];
   isMine: boolean;
-  onWriteClick?: () => void;
 }
 
 const MbtiPageTemplate = ({
@@ -23,11 +29,46 @@ const MbtiPageTemplate = ({
   isMine,
 }: MbtiPageTemplateProps) => {
   const navigate = useNavigate();
+
+  const [showQr, setShowQr] = useState(false);
+  const { data: isMyFriend } = useCheckFriendQuery(profileData.userId);
+
+  const { mutate: addFriend } = useCreateFriend();
+  const { mutate: removeFriend } = useDeleteFriend();
+
+  const handleAddFriend = () => {
+    addFriend(profileData.userId);
+  };
+
+  const handleDeleteFriend = () => {
+    removeFriend(profileData.userId);
+  };
+
+  const handleToggleQr = () => {
+    setShowQr((prev) => !prev);
+  };
+
+  const actionButton = (
+    <ProfileCardActionButton
+      mbti={profileData.mbti}
+      isMine={isMine}
+      isFriend={isMyFriend?.isFriend ?? false}
+      showQr={showQr}
+      onAddFriend={handleAddFriend}
+      onDeleteFriend={handleDeleteFriend}
+      onToggleQr={handleToggleQr}
+    />
+  );
+
   return (
     <PageLayout className="home-page-layout">
       {/* 프로필 카드 */}
       <Layout className="home-my-card-layout">
-        <ProfileCard data={profileData} isMine={true} />
+        <ProfileCard
+          data={profileData}
+          actionButton={actionButton}
+          showQr={showQr}
+        />
       </Layout>
       {/* 투표결과 카드 */}
       <Layout className="home-vote-card-layout">
@@ -45,7 +86,7 @@ const MbtiPageTemplate = ({
           {!isMine && (
             <button
               onClick={() => {
-                navigate(`/vote/${profileData.userId}`);
+                navigate(`/vote/${profileData.userId}/write`);
               }}
               className={`svg-button f-body2`}
             >

@@ -1,0 +1,17 @@
+@use "/src/styles/modules";
+
+.error-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+
+  .error-message {
+    margin-bottom: 20px;
+  }
+  .error-description {
+    color: modules.$purple-300;
+  }
+}

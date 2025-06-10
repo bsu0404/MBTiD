@@ -3,22 +3,24 @@ import { useUserVoteListQuery } from "../../hook/vote/useVoteList";
 import MbtiPageTemplate from "@/components/templates/MbtiPageTemplate";
 import { useUserProfileQuery } from "@/hook/profile/useUserInfoQuery";
 import { useParams } from "react-router-dom";
-// import { Suspense } from "react";
-// import Loading from "react-loading";
+
+import useAuthStore from "@/store/auth";
 
 const USer = () => {
   const { id } = useParams<{ id: string }>();
+  const userId = id ?? "";
+  const { userId: myId } = useAuthStore();
 
-  const { data: profileData } = useUserProfileQuery(id ?? "");
-  const { data: voteResult } = useUserVoteResultQuery(id ?? "");
-  const { data: voteList } = useUserVoteListQuery(id ?? "");
+  const { data: profileData } = useUserProfileQuery(userId);
+  const { data: voteResult } = useUserVoteResultQuery(userId);
+  const { data: voteList } = useUserVoteListQuery(userId);
 
   return (
     <MbtiPageTemplate
       profileData={profileData}
       voteResult={voteResult ? voteResult.data : null}
       voteList={voteList ? voteList.data : []}
-      isMine={true}
+      isMine={profileData.userId == myId}
     />
   );
 };

@@ -33,7 +33,7 @@ const Header = () => {
           {isLoggedIn && (
             <>
               <MenuItem name="홈" path="/" />
-              <MenuItem name="보관함" path="/card" />
+              <MenuItem name="보관함" path="/friends" />
               <MenuItem name="MY" path="/my" />
             </>
           )}

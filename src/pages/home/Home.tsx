@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "@/store/auth";
 import { useMyProfileQuery } from "../../hook/profile/useMyInfoQuery";
@@ -7,12 +7,18 @@ import { useMyVoteListQuery } from "../../hook/vote/useVoteList";
 import MbtiPageTemplate from "@/components/templates/MbtiPageTemplate";
 import Loading from "@/components/common/loading/Loading";
 import "./home.scss";
+import ErrorPage from "../error/ErrorPage";
 
-const HomeContent = () => {
+const Home = () => {
   const { isLoggedIn } = useAuthStore();
   const navigate = useNavigate();
+  const [showQr, setShowQr] = useState<boolean>(false);
 
-  const { data: profileData, isLoading } = useMyProfileQuery(isLoggedIn);
+  const {
+    data: profileData,
+    isLoading,
+    isError,
+  } = useMyProfileQuery(isLoggedIn);
   const { data: voteResult } = useMyVoteResultQuery(isLoggedIn);
   const { data: voteList } = useMyVoteListQuery(isLoggedIn);
 
@@ -24,7 +30,7 @@ const HomeContent = () => {
   }, [isLoggedIn, navigate]);
 
   if (!isLoggedIn) return null;
-
+  if (isError) return <ErrorPage />;
   if (isLoading || !profileData) {
     return <Loading />;
   }
@@ -38,7 +44,5 @@ const HomeContent = () => {
     />
   );
 };
-
-const Home = () => <HomeContent />;
 
 export default Home;
