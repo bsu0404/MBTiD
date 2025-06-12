@@ -20,10 +20,10 @@ const SettingMbti = () => {
   const handleSubmit = () => {
     // MBTI 점수 업데이트
     updateMbti({
-      mbti_ei_score: ei,
-      mbti_sn_score: sn,
-      mbti_tf_score: tf,
-      mbti_pj_score: pj,
+      mbti_ei_score: 100 - ei,
+      mbti_sn_score: 100 - sn,
+      mbti_tf_score: 100 - tf,
+      mbti_pj_score: 100 - pj,
     });
   };
 

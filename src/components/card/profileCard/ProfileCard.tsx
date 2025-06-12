@@ -18,7 +18,7 @@ const ProfileCard = ({
   actionButton,
   showQr = false,
 }: ProfileCardProps) => {
-  const currentUrl = window.location.href;
+  const currentUrl = `https://mbtid.winterholic.net/user/${data.userId}`;
 
   const image = getMbtiImageSrc(data?.mbti);
 

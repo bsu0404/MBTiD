@@ -90,7 +90,9 @@ const GuestbookForm = () => {
         />
 
         <div className="mbti-section">
-          <p className="mbti-title f-title2">유화정님에게 어울리는 MBTI는?</p>
+          <p className="mbti-title f-title2">
+            {profileData?.nickname}님에게 어울리는 MBTI는?
+          </p>
           <div className="mbti-preview">
             {mbti.map((letter, idx) => (
               <span
