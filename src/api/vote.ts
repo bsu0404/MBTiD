@@ -12,7 +12,7 @@ export const fetchMyVoteResult = async () => {
 };
 // 유저 투표 결과 조회
 export const fetchUserVoteResult = async (userId: string) => {
-  const res = await api.get<VoteResultResponse>(`/vote/result/${userId}`);
+  const res = await api.get<VoteResultResponse>(`home/vote/result/${userId}`);
   return res.data;
 };
 // 투표 생성
@@ -27,6 +27,6 @@ export const fetchMyVoteList = async () => {
 };
 // 유저 투표 결과 조회
 export const fetchUserVoteList = async (userId: string) => {
-  const res = await api.get<VoteListResponse>(`/vote/list/${userId}`);
+  const res = await api.get<VoteListResponse>(`home/vote/list/${userId}`);
   return res.data;
 };

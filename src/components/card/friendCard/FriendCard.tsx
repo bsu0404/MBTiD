@@ -1,10 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import MBTIScoreGraph from "@/components/MBTIScoreGraph/MBTIScoreGraph";
 import { getMbtiMiniProfileImage } from "@/utils/getMbtiProfile";
-import { getMBTIBGColor } from "@/utils/getMbtiColor";
+import { getMBTIBGColor, getMBTIColor } from "@/utils/getMbtiColor";
 import { FriendData } from "@/types/friend";
-import "./friendCard.scss";
 import OutlineButton from "@/components/button/OutlineButton";
-import { useNavigate } from "react-router-dom";
+import "./friendCard.scss";
 
 interface FriendCardProps {
   friendData: FriendData;
@@ -37,19 +37,21 @@ const FriendCard = ({ friendData }: FriendCardProps) => {
               size={"small"}
               type={"button"}
               onClick={() => navigate(`/user/${friendData.user_id}`)}
+              color={getMBTIColor(friendData.mbti)}
             >
               MBTI 보러가기
             </OutlineButton>
           </div>
         </div>
-
-        <MBTIScoreGraph
-          mbti={friendData.mbti}
-          ei={friendData.mbti_ei_score}
-          sn={friendData.mbti_sn_score}
-          tf={friendData.mbti_tf_score}
-          jp={friendData.mbti_pj_score}
-        />
+        <div className="mbti-score-graph-container">
+          <MBTIScoreGraph
+            mbti={friendData.mbti}
+            ei={friendData.mbti_ei_score}
+            sn={friendData.mbti_sn_score}
+            tf={friendData.mbti_tf_score}
+            jp={friendData.mbti_pj_score}
+          />
+        </div>
       </div>
     </>
   );

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Slider from "react-slider";
 
 import { Layout, PageLayout } from "@/components/layout/Layout";
 import InputBox from "@/components/input/InputBox";
@@ -10,6 +9,7 @@ import BackHeader from "@/components/header/BackHeader";
 import OutlineButton from "@/components/button/OutlineButton";
 import { checkId, join } from "@/api/auth";
 import "./join.scss";
+import MbtiTestTemplate from "@/components/templates/mbtiTest";
 
 export interface JoinProps {
   id: string;
@@ -192,109 +192,16 @@ const Join = () => {
           )}
           {step == 2 && (
             <div className="join-layout">
-              <div className="f-title1 title2">
-                🔎
-                <br />
-                나의 MBTI를 입력해주세요.
-              </div>
-              <div className="mbti-wrapper f-title2">
-                <div className="mbti-box">
-                  {ei == 50 ? "" : ei > 50 ? "E" : "I"}
-                </div>
-                <div className="mbti-box">
-                  {sn == 50 ? "" : sn > 50 ? "S" : "N"}
-                </div>
-                <div className="mbti-box">
-                  {tf == 50 ? "" : tf > 50 ? "T" : "F"}
-                </div>
-                <div className="mbti-box">
-                  {pj == 50 ? "" : pj > 50 ? "P" : "J"}
-                </div>
-              </div>
-              <div className="slider-wrapper f-caption">
-                <p>E</p>
-                <div className="slider-container">
-                  <Slider
-                    min={1}
-                    max={100}
-                    value={ei}
-                    onChange={setEi}
-                    className="slider"
-                    thumbClassName="thumb"
-                    trackClassName="track"
-                  />
-                  <div
-                    className="percentage"
-                    style={{ left: `calc(${ei}% - 15px)` }}
-                  >
-                    {ei > 50 ? ei : 100 - ei}%
-                  </div>
-                </div>
-                <p>I</p>
-              </div>
-              <div className="slider-wrapper f-caption">
-                <p>S</p>
-                <div className="slider-container">
-                  <Slider
-                    min={1}
-                    max={100}
-                    value={sn}
-                    onChange={setSn}
-                    className="slider"
-                    thumbClassName="thumb"
-                    trackClassName="track"
-                  />
-                  <div
-                    className="percentage"
-                    style={{ left: `calc(${sn}% - 15px)` }}
-                  >
-                    {sn > 50 ? sn : 100 - sn}%
-                  </div>
-                </div>
-                <p>N</p>
-              </div>
-              <div className="slider-wrapper f-caption">
-                <p>T</p>
-                <div className="slider-container">
-                  <Slider
-                    min={1}
-                    max={100}
-                    value={tf}
-                    onChange={setTf}
-                    className="slider"
-                    thumbClassName="thumb"
-                    trackClassName="track"
-                  />
-                  <div
-                    className="percentage"
-                    style={{ left: `calc(${tf}% - 15px)` }}
-                  >
-                    {tf > 50 ? tf : 100 - tf}%
-                  </div>
-                </div>
-                <p>F</p>
-              </div>
-              <div className="slider-wrapper f-caption">
-                <p>P</p>
-                <div className="slider-container">
-                  <Slider
-                    min={1}
-                    max={100}
-                    value={pj}
-                    onChange={setPj}
-                    className="slider"
-                    thumbClassName="thumb"
-                    trackClassName="track"
-                  />
-                  <div
-                    className="percentage f-caption"
-                    style={{ left: `calc(${pj}% - 15px)` }}
-                  >
-                    {pj > 50 ? pj : 100 - pj}%
-                  </div>
-                </div>
-                <p>J</p>
-              </div>
+              <MbtiTestTemplate
+                ei={ei}
+                setEi={setEi}
+                sn={sn}
+                setSn={setSn}
+                tf={tf}
+                setTf={setTf}
+                pj={pj}
+                setPj={setPj}
+              />
               <div className="button-section">
                 <SolidButton
                   type="submit"

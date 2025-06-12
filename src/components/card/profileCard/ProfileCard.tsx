@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 
 import MBTIScoreGraph from "@/components/MBTIScoreGraph/MBTIScoreGraph";
-import OutlineButton from "@/components/button/OutlineButton";
+
 import { getMbtiDescription } from "@/utils/getMbtiDescription";
 import { getMbtiImageSrc } from "@/utils/getMbtiProfile";
 import { getMBTIBGColor } from "@/utils/getMbtiColor";
@@ -50,13 +49,15 @@ const ProfileCard = ({
         <div className="mbti-subtitle f-body2">
           {getMbtiDescription(data.mbti)}
         </div>
-        <MBTIScoreGraph
-          mbti={data.mbti}
-          ei={data.mbti_ei_score}
-          sn={data.mbti_sn_score}
-          tf={data.mbti_tf_score}
-          jp={data.mbti_pj_score}
-        />
+        <div className="mbti-score-graph-container">
+          <MBTIScoreGraph
+            mbti={data.mbti}
+            ei={data.mbti_ei_score}
+            sn={data.mbti_sn_score}
+            tf={data.mbti_tf_score}
+            jp={data.mbti_pj_score}
+          />
+        </div>
       </div>
     </div>
   );

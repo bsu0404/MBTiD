@@ -32,14 +32,15 @@ const VoteResultCard = ({ voteResult }: VoteResultCardProps) => {
               총 {voteResult.total_count}명이 투표했어요!
             </p>
           </div>
-
-          <MBTIScoreGraph
-            mbti={voteResult.mbti_result}
-            ei={voteResult.mbti_ei_score}
-            sn={voteResult.mbti_sn_score}
-            tf={voteResult.mbti_tf_score}
-            jp={voteResult.mbti_jp_score}
-          />
+          <div className="mbti-score-graph-container">
+            <MBTIScoreGraph
+              mbti={voteResult.mbti_result}
+              ei={voteResult.mbti_ei_score}
+              sn={voteResult.mbti_sn_score}
+              tf={voteResult.mbti_tf_score}
+              jp={voteResult.mbti_jp_score}
+            />
+          </div>
         </div>
       ) : (
         <div className="no-votes-container">

@@ -44,7 +44,12 @@ const ProfileCardActionButton = ({
       보관 취소하기
     </OutlineButton>
   ) : (
-    <OutlineButton size="small" onClick={onAddFriend} type={"button"}>
+    <OutlineButton
+      size="small"
+      onClick={onAddFriend}
+      type={"button"}
+      color={getMBTIColor(mbti)}
+    >
       친구의 MBTiD 보관하기
     </OutlineButton>
   );

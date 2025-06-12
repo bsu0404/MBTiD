@@ -12,7 +12,7 @@ interface VoteListProps {
 const VoteList = ({ voteList }: VoteListProps) => {
   return (
     <div className="visitors-container">
-      {voteList ? (
+      {voteList.length > 0 ? (
         <div className="visitors-list">
           {voteList.map((visitor) => (
             <div
@@ -35,7 +35,9 @@ const VoteList = ({ voteList }: VoteListProps) => {
                 <OutlineChip visitorData={visitor} />
                 <OutlineChipGray
                   name={
-                    visitor.incognito ? "익명" : visitor.voting_user_nickname
+                    visitor.incognito === "Y"
+                      ? "익명"
+                      : visitor.voting_user_nickname
                   }
                 />
               </div>

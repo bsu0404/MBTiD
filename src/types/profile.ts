@@ -9,3 +9,10 @@ export interface UserMbtiProfile {
   mbti_tf_score: number;
   mbti_pj_score: number;
 }
+
+export interface MbtiUpdateReq {
+  mbti_ei_score: number;
+  mbti_sn_score: number;
+  mbti_tf_score: number;
+  mbti_pj_score: number;
+}

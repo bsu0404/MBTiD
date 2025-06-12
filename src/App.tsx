@@ -13,6 +13,8 @@ import GuestbookForm from "@/pages/guestBook/GuestBook";
 import User from "@/pages/user/User";
 import My from "@/pages/my/My";
 import Friend from "./pages/friend/Friend";
+import SettingNickname from "./pages/setting/nickname/SettingNickname";
+import SettingMbti from "./pages/setting/mbti/SettingMbti/SettingMbti";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/test" element={<MBTITest />} />
           <Route path="/join" element={<Join />} />
+          <Route path="/setting/nickname" element={<SettingNickname />} />
+          <Route path="/setting/mbti" element={<SettingMbti />} />
         </Routes>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />

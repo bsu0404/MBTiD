@@ -1,0 +1,16 @@
+.setting-nickname-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 56px);
+  gap: 24px;
+  width: 100%;
+
+  .title-text {
+    text-align: center;
+  }
+  .input-wrapper {
+    width: 100%;
+  }
+}
