@@ -2,6 +2,7 @@ import FriendCard from "@/components/card/friendCard/FriendCard";
 import { Layout } from "@/components/layout/Layout";
 import { useMyFriendQuery } from "@/hook/friend/useMyFriendQuery";
 import useAuthStore from "@/store/auth";
+import "./friend.scss";
 
 const Friend = () => {
   const { isLoggedIn } = useAuthStore();

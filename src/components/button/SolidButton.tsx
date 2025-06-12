@@ -7,9 +7,17 @@ interface Props {
   type: "submit" | "reset" | "button";
   disabled?: boolean;
   onClick?: () => void;
+  color?: string;
 }
 
-const SolidButton = ({ children, size, type, disabled, onClick }: Props) => {
+const SolidButton = ({
+  children,
+  size,
+  type,
+  disabled,
+  onClick,
+  color = "#6C60C6",
+}: Props) => {
   return (
     <button
       data-size={size}
@@ -17,6 +25,7 @@ const SolidButton = ({ children, size, type, disabled, onClick }: Props) => {
       onClick={onClick}
       type={type}
       className={`solid-button ${disabled ? "disabled" : ""} ${size == "small" ? "f-caption" : "f-body1"}`}
+      style={{ backgroundColor: color }}
     >
       {children}
     </button>

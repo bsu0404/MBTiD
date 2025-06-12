@@ -78,7 +78,7 @@ const GuestbookForm = () => {
             src={isAnonymous ? checkBox : EmptycheckBox}
             alt={isAnonymous ? "체크된 박스" : "체크되지 않은 박스"}
           />
-          <span>익명으로 쓸래요.</span>
+          <span className="f-body2">익명으로 쓸래요.</span>
         </div>
 
         <textarea

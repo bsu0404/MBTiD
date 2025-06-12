@@ -18,7 +18,7 @@ export const deleteFriend = async (userId: string) => {
 // 친구 여부 조회
 export const checkFriend = async (userId: string) => {
   const response = await api.get<CheckFriendRes>(
-    `/home/profile/friends?user_id=${userId}`
+    `my/home/profile/friends?user_id=${userId}`
   );
   return response.data;
 };

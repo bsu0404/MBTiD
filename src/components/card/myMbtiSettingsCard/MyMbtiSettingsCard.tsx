@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import MBTIScoreGraph from "@/components/MBTIScoreGraph/MBTIScoreGraph";
 import { getMbtiDescription } from "@/utils/getMbtiDescription";
 import { getMbtiImageSrc } from "@/utils/getMbtiProfile";
-import { getMBTIBGColor } from "@/utils/getMbtiColor";
+import { getMBTIBGColor, getMBTIColor } from "@/utils/getMbtiColor";
 import { UserMbtiProfile } from "@/types/profile";
 import SolidButton from "@/components/button/SolidButton";
 import OutlineButton from "@/components/button/OutlineButton";
@@ -51,6 +51,7 @@ const MyMbtiSettingCard = ({ data, onLogout }: MyMbtiSettingCardProps) => {
           onClick={() => {
             navigate(`/setting/mbti`);
           }}
+          color={getMBTIColor(data.mbti)}
         >
           MBTI 수정하기
         </SolidButton>
@@ -60,10 +61,15 @@ const MyMbtiSettingCard = ({ data, onLogout }: MyMbtiSettingCardProps) => {
           onClick={() => {
             navigate(`/setting/nickname`);
           }}
+          color={getMBTIColor(data.mbti)}
         >
           닉네임 수정하기
         </OutlineButton>
-        <button className="logout-button f-body2 " onClick={onLogout}>
+        <button
+          className="logout-button f-body2 "
+          onClick={onLogout}
+          style={{ color: getMBTIColor(data.mbti) }}
+        >
           로그아웃
         </button>
       </div>

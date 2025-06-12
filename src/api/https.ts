@@ -3,7 +3,7 @@ import { getAccessToken } from "../store/auth";
 
 // application/json용
 export const api = axios.create({
-  baseURL: `http://${import.meta.env.VITE_API_URL}`,
+  baseURL: `${import.meta.env.VITE_API_URL}`,
   timeout: 30000,
   headers: {
     "Content-Type": "application/json",

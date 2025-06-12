@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "@/store/auth";
 import { useMyProfileQuery } from "../../hook/profile/useMyInfoQuery";
@@ -12,7 +12,6 @@ import ErrorPage from "../error/ErrorPage";
 const Home = () => {
   const { isLoggedIn } = useAuthStore();
   const navigate = useNavigate();
-  const [showQr, setShowQr] = useState<boolean>(false);
 
   const {
     data: profileData,
