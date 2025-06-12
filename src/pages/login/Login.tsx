@@ -30,7 +30,7 @@ const Login = () => {
     login(loginData).then(
       (res) => {
         console.log(res);
-        setToken(res.data.accessToken);
+        setToken(res.data.accessToken, loginData.id);
         navigate("/");
       },
       (error) => {
