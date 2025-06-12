@@ -35,7 +35,7 @@ const MbtiTestTemplate = ({
         <div className="mbti-box">{pj == 50 ? "" : pj > 50 ? "P" : "J"}</div>
       </div>
       <div className="slider-wrapper f-caption">
-        <p>E</p>
+        <p>I</p>
         <div className="slider-container">
           <Slider
             min={1}
@@ -50,10 +50,10 @@ const MbtiTestTemplate = ({
             {ei > 50 ? ei : 100 - ei}%
           </div>
         </div>
-        <p>I</p>
+        <p>E</p>
       </div>
       <div className="slider-wrapper f-caption">
-        <p>S</p>
+        <p>N</p>
         <div className="slider-container">
           <Slider
             min={1}
@@ -68,10 +68,10 @@ const MbtiTestTemplate = ({
             {sn > 50 ? sn : 100 - sn}%
           </div>
         </div>
-        <p>N</p>
+        <p>S</p>
       </div>
       <div className="slider-wrapper f-caption">
-        <p>T</p>
+        <p>F</p>
         <div className="slider-container">
           <Slider
             min={1}
@@ -86,10 +86,10 @@ const MbtiTestTemplate = ({
             {tf > 50 ? tf : 100 - tf}%
           </div>
         </div>
-        <p>F</p>
+        <p>T</p>
       </div>
       <div className="slider-wrapper f-caption">
-        <p>P</p>
+        <p>J</p>
         <div className="slider-container">
           <Slider
             min={1}
@@ -107,7 +107,7 @@ const MbtiTestTemplate = ({
             {pj > 50 ? pj : 100 - pj}%
           </div>
         </div>
-        <p>J</p>
+        <p>P</p>
       </div>
     </>
   );
