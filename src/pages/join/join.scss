@@ -24,6 +24,13 @@
   .input-field {
     width: 100%;
     margin-bottom: 8px;
+
+    .input-with-button {
+      width: 100%;
+      align-items: center;
+      display: flex;
+      gap: 10px;
+    }
   }
 
   .error-text {

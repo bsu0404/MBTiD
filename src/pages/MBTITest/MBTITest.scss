@@ -29,6 +29,7 @@
     border-radius: 100px;
     border: none;
     color: modules.$gray-400;
+    cursor: pointer;
   }
   .result {
     margin-bottom: 10px;
@@ -41,13 +42,20 @@
   justify-content: center;
   height: calc(100vh - 150px);
 
-  .question {
-    text-align: center;
-    margin-bottom: 36px;
-    margin: 0 50px;
-    color: modules.$purple-200;
+  .result-title {
+    margin-bottom: 30px;
   }
-  .result {
-    margin-bottom: 10px;
+
+  .result-card {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    .mbti-result {
+      margin-bottom: 20px;
+    }
   }
 }

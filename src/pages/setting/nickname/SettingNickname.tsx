@@ -32,7 +32,7 @@ const SettingNickname = () => {
         <SolidButton
           size={"large"}
           type={"submit"}
-          disabled={!nickname}
+          disabled={!nickname.trim()}
           onClick={handleSubmit}
         >
           수정하기

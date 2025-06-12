@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Category, questions } from "@/data/mbtiTest";
 import { Layout } from "@/components/layout/Layout";
 import TitleHeader from "@/components/header/TitleHeader";
-import OutlineButton from "@/components/button/OutlineButton";
+import MBTIScoreGraph from "@/components/MBTIScoreGraph/MBTIScoreGraph";
+import { mbtiType } from "@/types/mbti";
+import { getMBTIBGColor, getMBTIColor } from "@/utils/getMbtiColor";
+import SolidButton from "@/components/button/SolidButton";
 import "./MBTITest.scss";
 
 const MBTITest = () => {
@@ -68,49 +71,54 @@ const MBTITest = () => {
     };
 
     // MBTI 계산
-    const mbti = [
+    const mbtiArr = [
       percentages.EI > 50 ? "E" : "I",
       percentages.SN > 50 ? "S" : "N",
       percentages.TF > 50 ? "T" : "F",
       percentages.JP > 50 ? "J" : "P",
     ];
 
+    const mbti = mbtiArr.join("") as mbtiType;
+
     return { percentages, mbti };
   };
 
   if (currentQuestionIndex >= questions.length) {
     const { percentages, mbti } = calculatePercentages();
+    const ei = percentages.EI > 50 ? percentages.EI : 100 - percentages.EI;
+    const sn = percentages.SN > 50 ? percentages.SN : 100 - percentages.SN;
+    const tf = percentages.TF > 50 ? percentages.TF : 100 - percentages.TF;
+    const jp = percentages.JP > 50 ? percentages.JP : 100 - percentages.JP;
+
     return (
       <Layout>
-        <TitleHeader title={"MBTI 검사하기"} />
+        <TitleHeader title="MBTI 검사하기" />
         <div className="result-layout">
-          <h1 className="question">{mbti.join("")}</h1>
-          <p className="result">
-            {mbti[0]}{" "}
-            {percentages.EI > 50 ? percentages.EI : 100 - percentages.EI}%
-          </p>
-          <p className="result">
-            {mbti[1]}
-            {percentages.SN > 50 ? percentages.TF : 100 - percentages.TF}%
-          </p>
-          <p className="result">
-            {mbti[2]}
-            {percentages.TF > 50 ? percentages.TF : 100 - percentages.TF}%
-          </p>
-          <p className="result">
-            {mbti[3]}
-            {percentages.JP > 50 ? percentages.JP : 100 - percentages.JP}%
-          </p>
+          <p className="result-title f-title1"> 당신의 MBTI 유형은? </p>
+          <div
+            className="result-card"
+            style={{ backgroundColor: getMBTIBGColor(mbti) }}
+          >
+            <h1 className="mbti-result" style={{ color: getMBTIColor(mbti) }}>
+              {mbti}
+            </h1>
+            <MBTIScoreGraph mbti={mbti} ei={ei} sn={sn} tf={tf} jp={jp} />
+          </div>
+          <SolidButton
+            type="submit"
+            size="large"
+            onClick={() => {
+              sessionStorage.setItem(
+                "mbtiPercentages",
+                JSON.stringify(percentages)
+              );
+              navigate("/join");
+            }}
+            color={getMBTIColor(mbti)}
+          >
+            회원가입 하러 가기
+          </SolidButton>
         </div>
-        <OutlineButton
-          type="submit"
-          size="large"
-          onClick={() => {
-            navigate("/join");
-          }}
-        >
-          회원가입 하러 가기
-        </OutlineButton>
       </Layout>
     );
   }

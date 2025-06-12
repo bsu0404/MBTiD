@@ -9,11 +9,19 @@ export const login = async (data: LoginProps) => {
   return response;
 };
 export const join = async (data: JoinReq) => {
-  const response = await api.post(`/signup`, { ...data });
-  return response;
+  try {
+    const response = await api.post(`/signup`, { ...data });
+    return response;
+  } catch {
+    throw new Error("회원가입에 실패했습니다. 다시 시도해주세요.");
+  }
 };
 
 export const checkId = async (id: string) => {
-  const response = await api.post(`/check/id?id=${id}`);
-  return response;
+  try {
+    const response = await api.post(`/check/id?id=${id}`);
+    return response;
+  } catch {
+    throw new Error("이미 사용 중인 아이디입니다.");
+  }
 };

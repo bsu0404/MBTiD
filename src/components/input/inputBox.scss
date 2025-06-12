@@ -1,11 +1,13 @@
 @use "/src/styles/modules";
+.input-wrapper {
+  flex-grow: 1;
+  .input-box {
+    width: 100%;
+    padding: 12px 16px;
 
-.input-box {
-  width: 100%;
-  padding: 12px 16px;
+    border: 1px solid modules.$gray-300;
+    border-radius: 4px;
 
-  border: 1px solid modules.$gray-300;
-  border-radius: 4px;
-
-  outline: none;
+    outline: none;
+  }
 }

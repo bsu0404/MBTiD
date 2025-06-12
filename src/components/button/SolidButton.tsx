@@ -25,7 +25,7 @@ const SolidButton = ({
       onClick={onClick}
       type={type}
       className={`solid-button ${disabled ? "disabled" : ""} ${size == "small" ? "f-caption" : "f-body1"}`}
-      style={{ backgroundColor: color }}
+      style={disabled ? undefined : { backgroundColor: color }}
     >
       {children}
     </button>

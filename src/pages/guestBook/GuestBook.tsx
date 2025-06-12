@@ -93,7 +93,10 @@ const GuestbookForm = () => {
           <p className="mbti-title f-title2">유화정님에게 어울리는 MBTI는?</p>
           <div className="mbti-preview">
             {mbti.map((letter, idx) => (
-              <span key={idx} className="mbti-letter f-title2">
+              <span
+                key={idx}
+                className={`mbti-letter f-title2 ${letter ? "selected" : ""}`}
+              >
                 {letter}
               </span>
             ))}
@@ -105,7 +108,7 @@ const GuestbookForm = () => {
                   <>
                     <button
                       type="button"
-                      key={letter}
+                      key={`${groupIdx}-${letter}`}
                       className={
                         mbti[groupIdx] === letter
                           ? "mbti-button selected "
