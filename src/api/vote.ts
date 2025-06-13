@@ -4,6 +4,7 @@ import {
   VoteResultResponse,
 } from "@/types/vote";
 import { api } from "./https";
+import { AxiosError } from "axios";
 
 // 내 투표 결과 조회
 export const fetchMyVoteResult = async () => {
@@ -17,8 +18,17 @@ export const fetchUserVoteResult = async (userId: string) => {
 };
 // 투표 생성
 export const createVote = async (payload: VoteRequest) => {
-  const response = await api.post("/vote", payload);
-  return response.data;
+  try {
+    const response = await api.post("/vote", payload);
+    return response.data;
+  } catch (err) {
+    if (err instanceof AxiosError) {
+      if (err.status === 470) {
+        throw new Error("이미 투표하셨습니다.");
+      }
+    }
+    throw new Error("문제가 발생했습니다.");
+  }
 };
 // 내 방명록 리스트 조회
 export const fetchMyVoteList = async () => {

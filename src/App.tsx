@@ -15,8 +15,15 @@ import My from "@/pages/my/My";
 import Friend from "./pages/friend/Friend";
 import SettingNickname from "./pages/setting/nickname/SettingNickname";
 import SettingMbti from "./pages/setting/mbti/SettingMbti/SettingMbti";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    if (window.Kakao && !window.Kakao.isInitialized()) {
+      window.Kakao.init("ebafb0b3627f38af30e9783b31e0edcb"); // 본인의 JS 키로 변경
+    }
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>

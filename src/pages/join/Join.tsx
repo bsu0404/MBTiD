@@ -208,15 +208,6 @@ const Join = () => {
                 >
                   회원가입 (1/2)
                 </SolidButton>
-                <OutlineButton
-                  type="submit"
-                  size="large"
-                  onClick={() => {
-                    navigate("/test");
-                  }}
-                >
-                  MBTI 검사하기
-                </OutlineButton>
               </div>
             </div>
           )}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuthStore from "@/store/auth";
 import {
   useCheckFriendQuery,
   useCreateFriend,
@@ -29,6 +30,7 @@ const MbtiPageTemplate = ({
   isMine,
 }: MbtiPageTemplateProps) => {
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuthStore();
 
   const [showQr, setShowQr] = useState(false);
   const { data: isMyFriend } = useCheckFriendQuery(profileData.userId);
@@ -86,6 +88,10 @@ const MbtiPageTemplate = ({
           {!isMine && (
             <button
               onClick={() => {
+                if (!isLoggedIn) {
+                  alert("로그인이후 가능합니다.");
+                  return;
+                }
                 navigate(`/vote/${profileData.userId}/write`);
               }}
               className={`svg-button f-body2`}

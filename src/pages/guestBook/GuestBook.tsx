@@ -58,7 +58,9 @@ const GuestbookForm = () => {
       alert("투표가 성공적으로 등록되었습니다!");
       navigate(`/user/${id}`);
     } catch (error) {
-      alert("투표 등록 중 오류가 발생했습니다.");
+      alert(
+        error instanceof Error ? error.message : "투표 등록에 실패했습니다."
+      );
       console.error(error);
     }
   };
