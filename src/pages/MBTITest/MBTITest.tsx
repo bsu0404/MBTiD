@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUpdateMbtiMutation } from "@/hook/profile/useMyInfoQuery";
+
 import { Category, questions } from "@/data/mbtiTest";
 import { Layout } from "@/components/layout/Layout";
 import TitleHeader from "@/components/header/TitleHeader";
@@ -8,6 +10,7 @@ import { mbtiType } from "@/types/mbti";
 import { getMBTIBGColor, getMBTIColor } from "@/utils/getMbtiColor";
 import SolidButton from "@/components/button/SolidButton";
 import "./MBTITest.scss";
+import useAuthStore from "@/store/auth";
 
 const MBTITest = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -22,6 +25,8 @@ const MBTITest = () => {
     P: 0,
   });
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuthStore();
+  const { mutate: updateMbti } = useUpdateMbtiMutation();
 
   const getOppositeCategory = (category: Category): Category => {
     const opposites: {
@@ -90,6 +95,20 @@ const MBTITest = () => {
     const tf = percentages.TF > 50 ? percentages.TF : 100 - percentages.TF;
     const jp = percentages.JP > 50 ? percentages.JP : 100 - percentages.JP;
 
+    const handelClick = () => {
+      if (isLoggedIn) {
+        sessionStorage.setItem("mbtiPercentages", JSON.stringify(percentages));
+        navigate("/join");
+      } else {
+        updateMbti({
+          mbti_ei_score: 100 - ei,
+          mbti_sn_score: 100 - sn,
+          mbti_tf_score: 100 - tf,
+          mbti_pj_score: jp,
+        });
+      }
+    };
+
     return (
       <Layout>
         <TitleHeader title="MBTI 검사하기" />
@@ -107,16 +126,10 @@ const MBTITest = () => {
           <SolidButton
             type="submit"
             size="large"
-            onClick={() => {
-              sessionStorage.setItem(
-                "mbtiPercentages",
-                JSON.stringify(percentages)
-              );
-              navigate("/join");
-            }}
+            onClick={handelClick}
             color={getMBTIColor(mbti)}
           >
-            회원가입 하러 가기
+            {isLoggedIn ? "수정하기" : "회원가입 하러 가기"}
           </SolidButton>
         </div>
       </Layout>

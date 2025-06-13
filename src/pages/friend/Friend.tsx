@@ -13,7 +13,9 @@ const Friend = () => {
     <Layout>
       <div className="title f-title2">친구들의 MBTiD를 확인해보세요!</div>
       <section className="friend-list">
-        {friendsData?.data.map((item) => <FriendCard friendData={item} />)}
+        {friendsData?.data.map((item) => (
+          <FriendCard friendData={item} key={item.user_id} />
+        ))}
       </section>
     </Layout>
   );
