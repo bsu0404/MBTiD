@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 interface BackHeaderProps {
   title: string;
+  onClose?: () => void;
 }
-const TitleHeader = ({ title }: BackHeaderProps) => {
+const TitleHeader = ({ title, onClose }: BackHeaderProps) => {
   const navigate = useNavigate();
   return (
     <div className="title-header-container">
@@ -13,7 +14,13 @@ const TitleHeader = ({ title }: BackHeaderProps) => {
         className="back"
         src={arrowLeft}
         alt="back"
-        onClick={() => navigate(-1)}
+        onClick={() => {
+          if (onClose) {
+            onClose();
+          } else {
+            navigate(-1);
+          }
+        }}
       />
       <div className="f-body1">{title}</div>
       <div className="back"></div>

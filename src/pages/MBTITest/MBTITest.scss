@@ -1,5 +1,15 @@
 @use "/src/styles/modules";
 
+.mbti-result-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999; // 다른 UI 위에 띄우기
+  background-color: white; // 또는 반투명한 배경
+  overflow-y: auto; // 내용 스크롤 허용
+}
 .test-layout {
   display: flex;
   flex-direction: column;

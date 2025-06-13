@@ -4,18 +4,18 @@ import BackHeader from "@/components/header/BackHeader";
 import { Layout } from "@/components/layout/Layout";
 import MbtiTestTemplate from "@/components/templates/mbtiTest";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./settingMbti.scss";
 import { useUpdateMbtiMutation } from "@/hook/profile/useMyInfoQuery";
+import MBTITest from "@/pages/MBTITest/MBTITest";
 
 const SettingMbti = () => {
-  const navigate = useNavigate();
   const [ei, setEi] = useState<number>(50);
   const [sn, setSn] = useState<number>(50);
   const [tf, setTf] = useState<number>(50);
   const [pj, setPj] = useState<number>(50);
 
   const { mutate: updateMbti } = useUpdateMbtiMutation();
+  const [isMbtiTestOpen, setIsMbtiTestOpen] = useState<boolean>(false);
 
   const handleSubmit = () => {
     // MBTI 점수 업데이트
@@ -56,13 +56,26 @@ const SettingMbti = () => {
             type="button"
             size="large"
             onClick={() => {
-              navigate("/test");
+              setIsMbtiTestOpen(true);
             }}
           >
             MBTI 검사하기
           </OutlineButton>
         </div>
       </div>
+      {isMbtiTestOpen && (
+        <MBTITest
+          onSubmit={(ei, sn, tf, jp) => {
+            updateMbti({
+              mbti_ei_score: ei,
+              mbti_sn_score: sn,
+              mbti_tf_score: tf,
+              mbti_pj_score: 100 - jp,
+            });
+          }}
+          onClose={() => setIsMbtiTestOpen(false)}
+        />
+      )}
     </Layout>
   );
 };

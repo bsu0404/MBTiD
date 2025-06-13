@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useUpdateMbtiMutation } from "@/hook/profile/useMyInfoQuery";
 
 import { Category, questions } from "@/data/mbtiTest";
 import { Layout } from "@/components/layout/Layout";
@@ -12,7 +10,11 @@ import SolidButton from "@/components/button/SolidButton";
 import "./MBTITest.scss";
 import useAuthStore from "@/store/auth";
 
-const MBTITest = () => {
+interface MBTITestProps {
+  onClose: () => void;
+  onSubmit: (ei: number, sn: number, tf: number, pj: number) => void;
+}
+const MBTITest = ({ onClose, onSubmit }: MBTITestProps) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [scores, setScores] = useState({
     E: 0,
@@ -24,9 +26,7 @@ const MBTITest = () => {
     J: 0,
     P: 0,
   });
-  const navigate = useNavigate();
   const { isLoggedIn } = useAuthStore();
-  const { mutate: updateMbti } = useUpdateMbtiMutation();
 
   const getOppositeCategory = (category: Category): Category => {
     const opposites: {
@@ -96,64 +96,64 @@ const MBTITest = () => {
     const jp = percentages.JP > 50 ? percentages.JP : 100 - percentages.JP;
 
     const handelClick = () => {
-      if (isLoggedIn) {
-        sessionStorage.setItem("mbtiPercentages", JSON.stringify(percentages));
-        navigate("/join");
-      } else {
-        updateMbti({
-          mbti_ei_score: 100 - ei,
-          mbti_sn_score: 100 - sn,
-          mbti_tf_score: 100 - tf,
-          mbti_pj_score: jp,
-        });
-      }
+      onSubmit(ei, sn, tf, jp);
     };
 
     return (
-      <Layout>
-        <TitleHeader title="MBTI 검사하기" />
-        <div className="result-layout">
-          <p className="result-title f-title1"> 당신의 MBTI 유형은? </p>
-          <div
-            className="result-card"
-            style={{ backgroundColor: getMBTIBGColor(mbti) }}
-          >
-            <h1 className="mbti-result" style={{ color: getMBTIColor(mbti) }}>
-              {mbti}
-            </h1>
-            <MBTIScoreGraph mbti={mbti} ei={ei} sn={sn} tf={tf} jp={jp} />
+      <div className="mbti-result-container">
+        <Layout>
+          <TitleHeader title="MBTI 검사하기" onClose={onClose} />
+          <div className="result-layout">
+            <p className="result-title f-title1"> 당신의 MBTI 유형은? </p>
+            <div
+              className="result-card"
+              style={{ backgroundColor: getMBTIBGColor(mbti) }}
+            >
+              <h1 className="mbti-result" style={{ color: getMBTIColor(mbti) }}>
+                {mbti}
+              </h1>
+              <MBTIScoreGraph mbti={mbti} ei={ei} sn={sn} tf={tf} jp={jp} />
+            </div>
+            <SolidButton
+              type="submit"
+              size="large"
+              onClick={handelClick}
+              color={getMBTIColor(mbti)}
+            >
+              {isLoggedIn ? "수정하기" : "회원가입 하러 가기"}
+            </SolidButton>
           </div>
-          <SolidButton
-            type="submit"
-            size="large"
-            onClick={handelClick}
-            color={getMBTIColor(mbti)}
-          >
-            {isLoggedIn ? "수정하기" : "회원가입 하러 가기"}
-          </SolidButton>
-        </div>
-      </Layout>
+        </Layout>
+      </div>
     );
   }
 
   return (
-    <Layout>
-      <TitleHeader title={"MBTI 검사하기"} />
-      <div className="test-layout">
-        <p className="count f-title2">{`${currentQuestionIndex}/38`}</p>
-        <p className="question f-title1">
-          {questions[currentQuestionIndex].question}
-        </p>
-        <div className="button-wrapper">
-          <button className="select-button" onClick={() => handleAnswer(true)}>
-            예
-          </button>
-          <button className="select-button" onClick={() => handleAnswer(false)}>
-            아니요
-          </button>
+    <div className="mbti-result-container">
+      <Layout>
+        <TitleHeader title={"MBTI 검사하기"} onClose={onClose} />
+        <div className="test-layout">
+          <p className="count f-title2">{`${currentQuestionIndex}/38`}</p>
+          <p className="question f-title1">
+            {questions[currentQuestionIndex].question}
+          </p>
+          <div className="button-wrapper">
+            <button
+              className="select-button"
+              onClick={() => handleAnswer(true)}
+            >
+              예
+            </button>
+            <button
+              className="select-button"
+              onClick={() => handleAnswer(false)}
+            >
+              아니요
+            </button>
+          </div>
         </div>
-      </div>
-    </Layout>
+      </Layout>
+    </div>
   );
 };
 

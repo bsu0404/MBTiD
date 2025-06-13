@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -8,8 +8,9 @@ import SolidButton from "@/components/button/SolidButton";
 import BackHeader from "@/components/header/BackHeader";
 import OutlineButton from "@/components/button/OutlineButton";
 import { checkId, join } from "@/api/auth";
-import "./join.scss";
 import MbtiTestTemplate from "@/components/templates/mbtiTest";
+import MBTITest from "../MBTITest/MBTITest";
+import "./join.scss";
 
 export interface JoinProps {
   id: string;
@@ -34,28 +35,13 @@ type IdStatus = "unchecked" | "available" | "unavailable";
 
 const Join = () => {
   const navigate = useNavigate();
+  const [isMbtiTestOpen, setIsMbtiTestOpen] = useState<boolean>(false);
   const [idStatus, setIdStatus] = useState<IdStatus>("unchecked");
   const [step, setStep] = useState<number>(1);
   const [ei, setEi] = useState<number>(50);
   const [sn, setSn] = useState<number>(50);
   const [tf, setTf] = useState<number>(50);
   const [pj, setPj] = useState<number>(50);
-
-  useEffect(() => {
-    const stored = sessionStorage.getItem("mbtiPercentages");
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        console.log(parsed);
-        setEi(parsed.EI);
-        setSn(parsed.SN);
-        setTf(parsed.TF);
-        setPj(100 - parsed.JP);
-      } catch (e) {
-        console.error("MBTI 퍼센트 불러오기 실패", e);
-      }
-    }
-  }, []);
 
   const {
     handleSubmit,
@@ -238,7 +224,7 @@ const Join = () => {
                   type="button"
                   size="large"
                   onClick={() => {
-                    navigate("/test");
+                    setIsMbtiTestOpen(true);
                   }}
                 >
                   MBTI 검사하기
@@ -248,6 +234,18 @@ const Join = () => {
           )}
         </form>
       </Layout>
+      {isMbtiTestOpen && (
+        <MBTITest
+          onSubmit={(ei, sn, tf, jp) => {
+            setEi(100 - ei);
+            setSn(100 - sn);
+            setTf(100 - tf);
+            setPj(jp);
+            setIsMbtiTestOpen(false);
+          }}
+          onClose={() => setIsMbtiTestOpen(false)}
+        />
+      )}
     </PageLayout>
   );
 };
