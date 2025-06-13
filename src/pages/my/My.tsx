@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMyProfileQuery } from "@/hook/profile/useMyInfoQuery";
 import useAuthStore from "@/store/auth";
@@ -8,10 +9,14 @@ import MyMbtiSettingCard from "@/components/card/myMbtiSettingsCard/MyMbtiSettin
 import "./my.scss";
 
 const My = () => {
-  const { isLoggedIn, clearToken } = useAuthStore();
+  const { isLoggedIn, clearToken, setUserId } = useAuthStore();
   const navitate = useNavigate();
 
   const { data: profileData, isLoading } = useMyProfileQuery(isLoggedIn);
+
+  useEffect(() => {
+    if (profileData) setUserId(profileData.userId);
+  }, [profileData, setUserId]);
 
   if (!isLoggedIn) {
     navitate("/login");

@@ -5,7 +5,8 @@ interface AuthState {
   accessToken: string | null;
   isLoggedIn: boolean;
   userId: string | null;
-  setToken: (accessToken: string, userId: string) => void;
+  setToken: (accessToken: string) => void;
+  setUserId: (userId: string) => void;
   clearToken: () => void;
 }
 
@@ -28,10 +29,13 @@ const useAuthStore = create<AuthState>()(
       accessToken: null,
       isLoggedIn: false,
       userId: null,
-      setToken: (accessToken, userId) =>
+      setToken: (accessToken) =>
         set({
           accessToken,
           isLoggedIn: true,
+        }),
+      setUserId: (userId) =>
+        set({
           userId,
         }),
       clearToken: () =>
