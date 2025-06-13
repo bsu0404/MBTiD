@@ -37,7 +37,6 @@ function App() {
             <Route path="/friends" element={<Friend />} />
           </Route>
           <Route path="/login" element={<Login />} />
-          <Route path="/test" element={<MBTITest />} />
           <Route path="/join" element={<Join />} />
           <Route path="/setting/nickname" element={<SettingNickname />} />
           <Route path="/setting/mbti" element={<SettingMbti />} />
