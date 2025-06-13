@@ -10,7 +10,7 @@ import "./home.scss";
 import ErrorPage from "../error/ErrorPage";
 
 const Home = () => {
-  const { isLoggedIn } = useAuthStore();
+  const { isLoggedIn, setUserId } = useAuthStore();
   const navigate = useNavigate();
 
   const {
@@ -27,6 +27,10 @@ const Home = () => {
       navigate("/login");
     }
   }, [isLoggedIn, navigate]);
+
+  useEffect(() => {
+    if (profileData) setUserId(profileData.userId);
+  }, [profileData, setUserId]);
 
   if (!isLoggedIn) return null;
   if (isError) return <ErrorPage />;
