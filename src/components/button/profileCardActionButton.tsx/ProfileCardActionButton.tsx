@@ -32,8 +32,7 @@ const ProfileCardActionButton = ({
         content: {
           title: "친구가 생각하는 나의 MBTI는?",
           description: "MBTID로 친구와 나의 MBTI를 비교해보세요!",
-          imageUrl:
-            "https://mbtid.winterholic.net/assets/logo/snsLogoImage.png",
+          imageUrl: "https://mbtid.winterholic.net/assets/snsImage.jpg",
           link: {
             mobileWebUrl: "https://mbtid.winterholic.net/",
             webUrl: "https://mbtid.winterholic.net/",
