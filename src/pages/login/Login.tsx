@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAuthStore from "@/store/auth";
@@ -31,6 +31,7 @@ const Login = () => {
       (res) => {
         console.log(res);
         setToken(res.data.accessToken);
+        sessionStorage.removeItem("savedId");
         navigate("/");
       },
       (error) => {
@@ -43,11 +44,19 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: {
       // errors,
       isValid,
     },
   } = useForm<LoginProps>({ mode: "onChange" });
+
+  useEffect(() => {
+    const savedId = sessionStorage.getItem("savedId");
+    if (savedId) {
+      setValue("id", savedId);
+    }
+  }, [setValue]);
 
   return (
     <Layout>

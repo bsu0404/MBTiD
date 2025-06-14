@@ -7,10 +7,12 @@ import InputBox from "@/components/input/InputBox";
 import SolidButton from "@/components/button/SolidButton";
 import BackHeader from "@/components/header/BackHeader";
 import OutlineButton from "@/components/button/OutlineButton";
-import { checkId, join } from "@/api/auth";
+import { checkId } from "@/api/auth";
 import MbtiTestTemplate from "@/components/templates/mbtiTest";
 import MBTITest from "../MBTITest/MBTITest";
 import "./join.scss";
+import { useJoinMutation } from "@/hook/auth/useJoinMutation ";
+import Loading from "@/components/common/loading/Loading";
 
 export interface JoinProps {
   id: string;
@@ -51,6 +53,7 @@ const Join = () => {
     formState: { errors, isValid },
     watch,
   } = useForm<JoinProps>({ mode: "onChange" });
+  const { mutate: join, isPending } = useJoinMutation();
 
   const watchId = watch("id");
   const watchPassword = watch("password");
@@ -73,26 +76,29 @@ const Join = () => {
   };
 
   const handleJoin = async (data: JoinProps) => {
-    try {
-      console.log("Form Submitted:", data);
-      const joinData = {
-        id: data.id,
-        password: data.password,
-        nickname: data.nickname,
-        mbti_ei_score: 100 - ei, //34 (e) e i
-        mbti_sn_score: 100 - sn, //64 (n) s n
-        mbti_tf_score: 100 - tf, //15 (t) t f
-        mbti_pj_score: 100 - pj, //94 (j) p j
-      };
+    const joinData = {
+      id: data.id,
+      password: data.password,
+      nickname: data.nickname,
+      mbti_ei_score: 100 - ei, //34 (e) e i
+      mbti_sn_score: 100 - sn, //64 (n) s n
+      mbti_tf_score: 100 - tf, //15 (t) t f
+      mbti_pj_score: 100 - pj, //94 (j) p j
+    };
 
-      await join(joinData);
-      alert("회원가입되었습니다");
-      navigate("/login");
-      sessionStorage.removeItem("mbtiPercentages");
-    } catch {
-      alert("회원가입에 실패했습니다. 다시 시도해주세요.");
-    }
+    join(joinData, {
+      onSuccess: () => {
+        alert("회원가입되었습니다");
+        sessionStorage.setItem("savedId", joinData.id);
+        navigate("/login", { replace: true });
+      },
+      onError: () => {
+        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+      },
+    });
   };
+
+  if (isPending) return <Loading />;
 
   return (
     <PageLayout>
@@ -120,13 +126,15 @@ const Join = () => {
                     })}
                   />
                   {watchId && idStatus !== "available" && (
-                    <SolidButton
-                      size="small"
-                      type="button"
-                      onClick={handleCheckId}
-                    >
-                      중복 검사
-                    </SolidButton>
+                    <div className="button-wrapper">
+                      <SolidButton
+                        size="small"
+                        type="button"
+                        onClick={handleCheckId}
+                      >
+                        중복 검사
+                      </SolidButton>
+                    </div>
                   )}
                 </div>
 
@@ -215,10 +223,15 @@ const Join = () => {
                   size="large"
                   onClick={() => handleSubmit(handleJoin)}
                   disabled={
-                    !isValid || ei == 50 || sn == 50 || tf == 50 || pj == 50
+                    !isValid ||
+                    ei == 50 ||
+                    sn == 50 ||
+                    tf == 50 ||
+                    pj == 50 ||
+                    isPending
                   }
                 >
-                  회원가입 (2/2)
+                  {isPending ? "가입 중..." : "회원가입 (2/2)"}
                 </SolidButton>
                 <OutlineButton
                   type="button"

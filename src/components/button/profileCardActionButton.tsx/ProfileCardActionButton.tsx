@@ -1,3 +1,4 @@
+import html2canvas from "html2canvas";
 import { mbtiType } from "@/types/mbti";
 import OutlineButton from "../OutlineButton";
 import { getMBTIColor } from "@/utils/getMbtiColor";
@@ -51,9 +52,32 @@ const ProfileCardActionButton = ({
     }
   };
 
+  const onClickDownloadButton = () => {
+    const target = document.getElementById("mbti-image-container");
+    if (!target) {
+      return alert("사진 저장에 실패했습니다.");
+    }
+
+    html2canvas(target).then((canvas) => {
+      const target = document.getElementById("mbti-image-container");
+      if (!target) {
+        return alert("사진 저장에 실패했습니다.");
+      }
+
+      html2canvas(target, { backgroundColor: "white" }).then((canvas) => {
+        const link = document.createElement("a");
+        document.body.appendChild(link);
+        link.href = canvas.toDataURL("image/png");
+        link.download = `${mbti}.png`;
+        link.click();
+        document.body.removeChild(link);
+      });
+    });
+  };
+
   if (isMine) {
     return (
-      <div className="button-wrapper">
+      <div className="button-wrapper" data-html2canvas-ignore="true">
         <OutlineButton
           size="small"
           onClick={onToggleQr}
@@ -69,6 +93,14 @@ const ProfileCardActionButton = ({
           color={getMBTIColor(mbti)}
         >
           공유
+        </SolidButton>
+        <SolidButton
+          size="small"
+          onClick={onClickDownloadButton}
+          type={"button"}
+          color={getMBTIColor(mbti)}
+        >
+          저장
         </SolidButton>
       </div>
     );

@@ -56,7 +56,7 @@ const GuestbookForm = () => {
     try {
       await createVote(payload);
       alert("투표가 성공적으로 등록되었습니다!");
-      navigate(`/user/${id}`);
+      navigate(`/user/${id}`, { replace: true });
     } catch (error) {
       alert(
         error instanceof Error ? error.message : "투표 등록에 실패했습니다."

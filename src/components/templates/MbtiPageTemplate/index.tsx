@@ -65,21 +65,24 @@ const MbtiPageTemplate = ({
   return (
     <PageLayout className="home-page-layout">
       {/* 프로필 카드 */}
-      <Layout className="home-my-card-layout">
-        <ProfileCard
-          data={profileData}
-          actionButton={actionButton}
-          showQr={showQr}
-        />
-      </Layout>
-      {/* 투표결과 카드 */}
-      <Layout className="home-vote-card-layout">
-        <h3 className="home-vote-title f-title2">
-          친구들이 생각한 {isMine ? "나의" : `${profileData?.nickname}님의`}{" "}
-          MBTI
-        </h3>
-        <VoteResultCard voteResult={voteResult ?? null} />
-      </Layout>
+      <div id="mbti-image-container">
+        <Layout className="home-my-card-layout">
+          <ProfileCard
+            data={profileData}
+            actionButton={actionButton}
+            showQr={showQr}
+          />
+        </Layout>
+        {/* 투표결과 카드 */}
+        <Layout className="home-vote-card-layout">
+          <h3 className="home-vote-title f-title2">
+            친구들이 생각한 {isMine ? "나의" : `${profileData?.nickname}님의`}{" "}
+            MBTI
+          </h3>
+          <VoteResultCard voteResult={voteResult ?? null} />
+        </Layout>
+      </div>
+
       {/* 방명록 */}
       <Layout className="home-visitors-container">
         <div className="home-visitors-title-wrapper">

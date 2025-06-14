@@ -24,6 +24,7 @@ const ProfileCard = ({
 
   return (
     <div
+      id="mbti-card-container"
       className="mbti-card-container"
       style={{ background: getMBTIBGColor(data.mbti) }}
     >
