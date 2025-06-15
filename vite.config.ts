@@ -21,17 +21,17 @@ export default defineConfig({
         theme_color: "#918cea",
         icons: [
           {
-            src: "pwa/pwa-192x192.png",
+            src: "/assets/pwa/pwa-192x192.png",
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: "pwa/pwa-512x512.png",
+            src: "/assets/pwa/pwa-512x512.png",
             sizes: "512x512",
             type: "image/png",
           },
           {
-            src: "pwa/pwa-180x180.png",
+            src: "/assets/pwa/pwa-180x180.png",
             sizes: "180x180",
             type: "image/png",
           },
