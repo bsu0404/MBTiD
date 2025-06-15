@@ -1,3 +1,4 @@
+import React from "react";
 import { getMBTIColor } from "@/utils/getMbtiColor";
 import { MbtiScoreProps } from "@/types/mbti";
 import { getMBTIScoreArray } from "@/utils/getMbtiScoreArray";
@@ -26,6 +27,7 @@ const GraphItem = ({
 };
 const MBTIScoreGraph = ({ mbti, ei, sn, tf, jp }: MbtiScoreProps) => {
   const scoreData = getMBTIScoreArray({ mbti, ei, sn, tf, jp });
+  console.log("MBTIScoreGraph 리렌더링");
   return (
     <div className="mbti-score-graph-container">
       {scoreData.map((d, idx) => (
@@ -35,4 +37,4 @@ const MBTIScoreGraph = ({ mbti, ei, sn, tf, jp }: MbtiScoreProps) => {
   );
 };
 
-export default MBTIScoreGraph;
+export default React.memo(MBTIScoreGraph);

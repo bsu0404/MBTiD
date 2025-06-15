@@ -1,3 +1,4 @@
+import React from "react";
 import MBTIScoreGraph from "@/components/MBTIScoreGraph/MBTIScoreGraph";
 import { getMbtiMiniProfileImage } from "@/utils/getMbtiProfile";
 import { getMBTIBGColor } from "@/utils/getMbtiColor";
@@ -10,6 +11,8 @@ interface VoteResultCardProps {
 }
 const VoteResultCard = ({ voteResult }: VoteResultCardProps) => {
   if (!voteResult) return null;
+  console.log("VoteResultCard 리렌더링");
+
   return (
     <>
       {voteResult.mbti_result ? (
@@ -53,4 +56,4 @@ const VoteResultCard = ({ voteResult }: VoteResultCardProps) => {
   );
 };
 
-export default VoteResultCard;
+export default React.memo(VoteResultCard);

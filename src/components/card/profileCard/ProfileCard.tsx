@@ -1,3 +1,4 @@
+import React from "react";
 import { QRCodeCanvas } from "qrcode.react";
 
 import MBTIScoreGraph from "@/components/MBTIScoreGraph/MBTIScoreGraph";
@@ -21,6 +22,7 @@ const ProfileCard = ({
   const currentUrl = `https://mbtid.winterholic.net/user/${data.userId}`;
 
   const image = getMbtiImageSrc(data?.mbti);
+  console.log("ProfileCard 렌더링됨");
 
   return (
     <div
@@ -64,4 +66,5 @@ const ProfileCard = ({
   );
 };
 
-export default ProfileCard;
+export default React.memo(ProfileCard);
+// export default ProfileCard;

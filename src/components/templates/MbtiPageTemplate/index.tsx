@@ -16,6 +16,8 @@ import { UserMbtiProfile } from "@/types/profile";
 import ProfileCardActionButton from "@/components/button/profileCardActionButton.tsx/ProfileCardActionButton";
 import "./mbtiPageTemplate.scss";
 
+// import { Profiler } from "react";
+
 interface MbtiPageTemplateProps {
   profileData: UserMbtiProfile;
   voteResult: VoteResult | null;
@@ -63,6 +65,12 @@ const MbtiPageTemplate = ({
   );
 
   return (
+    // <Profiler
+    //   id="MyApp"
+    //   onRender={(id, phase, actualDuration) => {
+    //     console.log(`[${id}] ${phase}에 ${actualDuration.toFixed(2)}ms`);
+    //   }}
+    // >
     <PageLayout className="home-page-layout">
       <Layout>
         {/* 프로필 카드 */}
@@ -113,6 +121,7 @@ const MbtiPageTemplate = ({
         </section>
       </Layout>
     </PageLayout>
+    // </Profiler>
   );
 };
 export default MbtiPageTemplate;

@@ -1,3 +1,4 @@
+import React from "react";
 import OutlineChip from "@/components/outlineChip/OutlineChip";
 import OutlineChipGray from "@/components/outlineChipGray/OutlineChipGray";
 import { VoteDetail } from "@/types/vote";
@@ -10,6 +11,8 @@ interface VoteListProps {
 }
 
 const VoteList = ({ voteList }: VoteListProps) => {
+  console.log("VoteList 리렌더링");
+
   return (
     <div className="visitors-container">
       {voteList.length > 0 ? (
@@ -55,4 +58,4 @@ const VoteList = ({ voteList }: VoteListProps) => {
   );
 };
 
-export default VoteList;
+export default React.memo(VoteList);

@@ -19,7 +19,7 @@ import { useEffect } from "react";
 function App() {
   useEffect(() => {
     if (window.Kakao && !window.Kakao.isInitialized()) {
-      window.Kakao.init("ebafb0b3627f38af30e9783b31e0edcb"); // 본인의 JS 키로 변경
+      window.Kakao.init("ebafb0b3627f38af30e9783b31e0edcb");
     }
   }, []);
 
