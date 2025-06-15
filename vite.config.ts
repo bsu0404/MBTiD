@@ -3,14 +3,17 @@ import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { VitePWA } from "vite-plugin-pwa";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     tsconfigPaths(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon.svg", "robots.txt", "apple-touch-icon.png"],
+      includeAssets: [
+        "assets/pwa/favicon.svg",
+        "assets/pwa/pwa-180x180.png",
+        "robots.txt",
+      ],
       manifest: {
         name: "MBTiD",
         short_name: "MBTiD",
