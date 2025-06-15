@@ -64,51 +64,53 @@ const MbtiPageTemplate = ({
 
   return (
     <PageLayout className="home-page-layout">
-      {/* 프로필 카드 */}
-      <div id="mbti-image-container">
-        <Layout className="home-my-card-layout">
-          <ProfileCard
-            data={profileData}
-            actionButton={actionButton}
-            showQr={showQr}
-          />
-        </Layout>
-        {/* 투표결과 카드 */}
-        <Layout className="home-vote-card-layout">
-          <h3 className="home-vote-title f-title2">
-            친구들이 생각한 {isMine ? "나의" : `${profileData?.nickname}님의`}{" "}
-            MBTI
-          </h3>
-          <VoteResultCard voteResult={voteResult ?? null} />
-        </Layout>
-      </div>
-
-      {/* 방명록 */}
-      <Layout className="home-visitors-container">
-        <div className="home-visitors-title-wrapper">
-          <h3 className="home-visitors-title f-title2">방명록</h3>
-
-          {!isMine && (
-            <button
-              onClick={() => {
-                if (!isLoggedIn) {
-                  alert("로그인이후 가능합니다.");
-                  return;
-                }
-                navigate(`/vote/${profileData.userId}/write`);
-              }}
-              className={`svg-button f-body2`}
-            >
-              <p className="f-body2">방명록 쓰기</p>
-              <img
-                src={ChevronRight}
-                alt="방명록 쓰기"
-                className="arrow-image"
-              />
-            </button>
-          )}
+      <Layout>
+        {/* 프로필 카드 */}
+        <div id="mbti-image-container">
+          <section className="home-my-card-layout">
+            <ProfileCard
+              data={profileData}
+              actionButton={actionButton}
+              showQr={showQr}
+            />
+          </section>
+          {/* 투표결과 카드 */}
+          <section className="home-vote-card-layout">
+            <h3 className="home-vote-title f-title2">
+              친구들이 생각한 {isMine ? "나의" : `${profileData?.nickname}님의`}{" "}
+              MBTI
+            </h3>
+            <VoteResultCard voteResult={voteResult ?? null} />
+          </section>
         </div>
-        <VoteList voteList={voteList || []} />
+
+        {/* 방명록 */}
+        <section className="home-visitors-container">
+          <div className="home-visitors-title-wrapper">
+            <h3 className="home-visitors-title f-title2">방명록</h3>
+
+            {!isMine && (
+              <button
+                onClick={() => {
+                  if (!isLoggedIn) {
+                    alert("로그인이후 가능합니다.");
+                    return;
+                  }
+                  navigate(`/vote/${profileData.userId}/write`);
+                }}
+                className={`svg-button f-body2`}
+              >
+                <p className="f-body2">방명록 쓰기</p>
+                <img
+                  src={ChevronRight}
+                  alt="방명록 쓰기"
+                  className="arrow-image"
+                />
+              </button>
+            )}
+          </div>
+          <VoteList voteList={voteList || []} />
+        </section>
       </Layout>
     </PageLayout>
   );

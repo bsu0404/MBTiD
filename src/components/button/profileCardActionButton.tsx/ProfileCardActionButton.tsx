@@ -1,10 +1,11 @@
-import html2canvas from "html2canvas";
 import { mbtiType } from "@/types/mbti";
 import OutlineButton from "../OutlineButton";
 import { getMBTIColor } from "@/utils/getMbtiColor";
 import SolidButton from "../SolidButton";
 import useAuthStore from "@/store/auth";
 import "./profileCardActionButton.scss";
+import { useDownloadMbtiImage } from "@/hook/client/useDownloadMbtiImage";
+import { useKakaoShare } from "@/hook/client/useKakaoShare";
 
 interface ProfileCardActionButtonProps {
   mbti: mbtiType;
@@ -26,54 +27,9 @@ const ProfileCardActionButton = ({
   showQr,
 }: ProfileCardActionButtonProps) => {
   const { userId } = useAuthStore();
-  const handleKakaoShare = () => {
-    if (window.Kakao) {
-      window.Kakao.Share.sendDefault({
-        objectType: "feed",
-        content: {
-          title: "친구가 생각하는 나의 MBTI는?",
-          description: "MBTID로 친구와 나의 MBTI를 비교해보세요!",
-          imageUrl: "https://mbtid.winterholic.net/assets/snsImage.jpg",
-          link: {
-            mobileWebUrl: "https://mbtid.winterholic.net/",
-            webUrl: "https://mbtid.winterholic.net/",
-          },
-        },
-        buttons: [
-          {
-            title: "친구 MBTID 보러가기",
-            link: {
-              mobileWebUrl: `https://mbtid.winterholic.net/user/${userId}`,
-              webUrl: `https://mbtid.winterholic.net/user/${userId}`,
-            },
-          },
-        ],
-      });
-    }
-  };
 
-  const onClickDownloadButton = () => {
-    const target = document.getElementById("mbti-image-container");
-    if (!target) {
-      return alert("사진 저장에 실패했습니다.");
-    }
-
-    html2canvas(target).then((canvas) => {
-      const target = document.getElementById("mbti-image-container");
-      if (!target) {
-        return alert("사진 저장에 실패했습니다.");
-      }
-
-      html2canvas(target, { backgroundColor: "white" }).then((canvas) => {
-        const link = document.createElement("a");
-        document.body.appendChild(link);
-        link.href = canvas.toDataURL("image/png");
-        link.download = `${mbti}.png`;
-        link.click();
-        document.body.removeChild(link);
-      });
-    });
-  };
+  const { handleDownload } = useDownloadMbtiImage(mbti);
+  const { handleKakaoShare } = useKakaoShare(userId ?? "");
 
   if (isMine) {
     return (
@@ -96,7 +52,7 @@ const ProfileCardActionButton = ({
         </SolidButton>
         <SolidButton
           size="small"
-          onClick={onClickDownloadButton}
+          onClick={handleDownload}
           type={"button"}
           color={getMBTIColor(mbti)}
         >
