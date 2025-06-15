@@ -7,3 +7,16 @@
   gap: 10px;
   padding-bottom: 30px;
 }
+
+.no-data-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 128px;
+
+  .no-data-text {
+    white-space: pre;
+    color: modules.$gray-300;
+  }
+}

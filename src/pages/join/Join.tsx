@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useJoinMutation } from "@/hook/auth/useJoinMutation ";
+import { checkId } from "@/api/auth";
 
-import { Layout, PageLayout } from "@/components/layout/Layout";
+import { Layout } from "@/components/layout/Layout";
 import InputBox from "@/components/input/InputBox";
 import SolidButton from "@/components/button/SolidButton";
 import BackHeader from "@/components/header/BackHeader";
 import OutlineButton from "@/components/button/OutlineButton";
-import { checkId } from "@/api/auth";
+import Loading from "@/components/common/loading/Loading";
 import MbtiTestTemplate from "@/components/templates/mbtiTest";
 import MBTITest from "../MBTITest/MBTITest";
 import "./join.scss";
-import { useJoinMutation } from "@/hook/auth/useJoinMutation ";
-import Loading from "@/components/common/loading/Loading";
 
 export interface JoinProps {
   id: string;
@@ -101,7 +101,7 @@ const Join = () => {
   if (isPending) return <Loading />;
 
   return (
-    <PageLayout>
+    <>
       <Layout>
         <BackHeader />
         <form onSubmit={handleSubmit(handleJoin)}>
@@ -259,7 +259,7 @@ const Join = () => {
           onClose={() => setIsMbtiTestOpen(false)}
         />
       )}
-    </PageLayout>
+    </>
   );
 };
 
