@@ -10,7 +10,7 @@ import { Layout, PageLayout } from "@/components/layout/Layout";
 import ProfileCard from "@/components/card/profileCard/ProfileCard";
 import VoteResultCard from "@/components/card/voteResultCard/VoteResultCard";
 import VoteList from "@/components/List/voteList/VoteList";
-import ChevronRight from "@/assets/chevron-right.svg";
+import ChevronRight from "@/assets/icon/chevron-right.svg";
 import { VoteDetail, VoteResult } from "@/types/vote";
 import { UserMbtiProfile } from "@/types/profile";
 import ProfileCardActionButton from "@/components/button/profileCardActionButton.tsx/ProfileCardActionButton";

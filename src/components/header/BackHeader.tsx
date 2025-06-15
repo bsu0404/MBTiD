@@ -1,6 +1,6 @@
-import "./backHeader.scss";
-import arrowLeft from "../../assets/arrow-left.svg";
 import { useNavigate } from "react-router-dom";
+import arrowLeft from "@/assets/icon/chevron-left.svg";
+import "./backHeader.scss";
 
 const BackHeader = () => {
   const navigate = useNavigate();
