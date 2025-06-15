@@ -67,9 +67,9 @@ const SettingMbti = () => {
         <MBTITest
           onSubmit={(ei, sn, tf, jp) => {
             updateMbti({
-              mbti_ei_score: ei,
-              mbti_sn_score: sn,
-              mbti_tf_score: tf,
+              mbti_ei_score: 100 - ei,
+              mbti_sn_score: 100 - sn,
+              mbti_tf_score: 100 - tf,
               mbti_pj_score: 100 - jp,
             });
           }}
