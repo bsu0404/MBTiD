@@ -4,3 +4,14 @@
   align-items: center;
   gap: 8px;
 }
+
+.button-icon-text {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  img {
+    width: 16px;
+    height: 16px;
+  }
+}

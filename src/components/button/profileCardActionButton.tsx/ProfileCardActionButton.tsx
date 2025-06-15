@@ -6,6 +6,7 @@ import useAuthStore from "@/store/auth";
 import "./profileCardActionButton.scss";
 import { useDownloadMbtiImage } from "@/hook/client/useDownloadMbtiImage";
 import { useKakaoShare } from "@/hook/client/useKakaoShare";
+import imageIcon from "@/assets/icon/image.svg";
 
 interface ProfileCardActionButtonProps {
   mbti: mbtiType;
@@ -56,7 +57,10 @@ const ProfileCardActionButton = ({
           type={"button"}
           color={getMBTIColor(mbti)}
         >
-          저장
+          <div className="button-icon-text">
+            <img src={imageIcon} alt="이미지 저장" />
+            저장
+          </div>
         </SolidButton>
       </div>
     );
