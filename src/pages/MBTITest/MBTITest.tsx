@@ -96,7 +96,12 @@ const MBTITest = ({ onClose, onSubmit }: MBTITestProps) => {
     const jp = percentages.JP > 50 ? percentages.JP : 100 - percentages.JP;
 
     const handelClick = () => {
-      onSubmit(ei, sn, tf, jp);
+      onSubmit(
+        percentages.EI,
+        percentages.SN,
+        percentages.TF,
+        100 - percentages.JP
+      );
     };
 
     return (

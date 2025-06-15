@@ -39,7 +39,7 @@ const Join = () => {
   const navigate = useNavigate();
   const [isMbtiTestOpen, setIsMbtiTestOpen] = useState<boolean>(false);
   const [idStatus, setIdStatus] = useState<IdStatus>("unchecked");
-  const [step, setStep] = useState<number>(1);
+  const [step, setStep] = useState<number>(2);
   const [ei, setEi] = useState<number>(50);
   const [sn, setSn] = useState<number>(50);
   const [tf, setTf] = useState<number>(50);
@@ -250,9 +250,9 @@ const Join = () => {
       {isMbtiTestOpen && (
         <MBTITest
           onSubmit={(ei, sn, tf, jp) => {
-            setEi(100 - ei);
-            setSn(100 - sn);
-            setTf(100 - tf);
+            setEi(ei);
+            setSn(sn);
+            setTf(tf);
             setPj(jp);
             setIsMbtiTestOpen(false);
           }}
