@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import OutlineChip from "@/components/outlineChip/OutlineChip";
 import OutlineChipGray from "@/components/outlineChipGray/OutlineChipGray";
 import { VoteDetail } from "@/types/vote";
@@ -11,8 +12,7 @@ interface VoteListProps {
 }
 
 const VoteList = ({ voteList }: VoteListProps) => {
-  console.log("VoteList 리렌더링");
-
+  const navigate = useNavigate();
   return (
     <div className="visitors-container">
       {voteList.length > 0 ? (
@@ -42,6 +42,12 @@ const VoteList = ({ voteList }: VoteListProps) => {
                       ? "익명"
                       : visitor.voting_user_nickname
                   }
+                  onClick={() => {
+                    if (visitor.incognito !== null) {
+                      navigate(`/user/${visitor.voting_user_id}`);
+                    }
+                  }}
+                  className={visitor.incognito !== "Y" ? "cursor-pointer" : ""}
                 />
               </div>
             </div>

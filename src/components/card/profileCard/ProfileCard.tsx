@@ -22,7 +22,6 @@ const ProfileCard = ({
   const currentUrl = `https://mbtid.winterholic.net/user/${data.userId}`;
 
   const image = getMbtiImageSrc(data?.mbti);
-  console.log("ProfileCard 렌더링됨");
 
   return (
     <div

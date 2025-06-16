@@ -10,4 +10,7 @@
   border: 1px solid modules.$gray-300;
   color: modules.$gray-300;
 
+  &.cursor-pointer {
+    cursor: pointer;
+  }
 }

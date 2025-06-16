@@ -11,7 +11,6 @@ interface VoteResultCardProps {
 }
 const VoteResultCard = ({ voteResult }: VoteResultCardProps) => {
   if (!voteResult) return null;
-  console.log("VoteResultCard 리렌더링");
 
   return (
     <>
