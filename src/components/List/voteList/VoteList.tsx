@@ -43,7 +43,7 @@ const VoteList = ({ voteList }: VoteListProps) => {
                       : visitor.voting_user_nickname
                   }
                   onClick={() => {
-                    if (visitor.incognito !== null) {
+                    if (visitor.incognito !== "Y") {
                       navigate(`/user/${visitor.voting_user_id}`);
                     }
                   }}
