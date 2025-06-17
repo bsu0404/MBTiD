@@ -1,6 +1,6 @@
 import { mbtiType } from "@/types/mbti";
 
-export const getMbtiImageSrc = (mbti: string) => `/assets/mbti/${mbti}.webp`;
+export const getMbtiImageSrc = (mbti: string) => `/assets/mbti/${mbti}.svg`;
 
 const mbtiColorMap: Record<mbtiType, "purple" | "green" | "blue" | "yellow"> = {
   // purple
