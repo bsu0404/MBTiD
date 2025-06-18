@@ -9,6 +9,7 @@ export const useMyProfileQuery = (isLoggedIn: boolean) => {
     queryFn: fetchMyProfile,
     retry: false,
     enabled: isLoggedIn,
+    staleTime: 1800000, // 30분동안 유효
   });
 };
 // 닉네임 수정

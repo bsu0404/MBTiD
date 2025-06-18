@@ -8,6 +8,7 @@ export const useMyVoteResultQuery = (isLoggedIn: boolean) => {
     queryFn: fetchMyVoteResult,
     retry: false,
     enabled: isLoggedIn,
+    staleTime: 60000, // 1분동안 유효
   });
 };
 
@@ -17,5 +18,6 @@ export const useUserVoteResultQuery = (userId: string) => {
     queryKey: ["userVoteResult", userId],
     queryFn: () => fetchUserVoteResult(userId),
     retry: false,
+    staleTime: 60000, // 1분동안 유효
   });
 };
