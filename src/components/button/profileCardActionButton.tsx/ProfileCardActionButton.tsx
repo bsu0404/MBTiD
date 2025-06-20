@@ -27,10 +27,10 @@ const ProfileCardActionButton = ({
   onToggleQr,
   showQr,
 }: ProfileCardActionButtonProps) => {
-  const { userId } = useAuthStore();
+  const { userInfo } = useAuthStore();
 
   const { handleDownload } = useDownloadMbtiImage(mbti);
-  const { handleKakaoShare } = useKakaoShare(userId ?? "");
+  const { handleKakaoShare } = useKakaoShare(userInfo?.userId ?? "");
 
   if (isMine) {
     return (

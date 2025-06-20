@@ -29,7 +29,6 @@ const Login = () => {
 
     login(loginData).then(
       (res) => {
-        console.log(res);
         setToken(res.data.accessToken);
         sessionStorage.removeItem("savedId");
         navigate("/");

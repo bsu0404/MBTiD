@@ -56,7 +56,7 @@ const MbtiPageTemplate = ({
     <ProfileCardActionButton
       mbti={profileData.mbti}
       isMine={isMine}
-      isFriend={isMyFriend?.isFriend ?? false}
+      isFriend={isMyFriend ?? false}
       showQr={showQr}
       onAddFriend={handleAddFriend}
       onDeleteFriend={handleDeleteFriend}

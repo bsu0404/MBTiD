@@ -9,7 +9,7 @@ import useAuthStore from "@/store/auth";
 const USer = () => {
   const { id } = useParams<{ id: string }>();
   const userId = id ?? "";
-  const { userId: myId } = useAuthStore();
+  const { userInfo } = useAuthStore();
 
   const { data: profileData } = useUserProfileQuery(userId);
   const { data: voteResult } = useUserVoteResultQuery(userId);
@@ -20,7 +20,7 @@ const USer = () => {
       profileData={profileData}
       voteResult={voteResult ? voteResult.data : null}
       voteList={voteList ? voteList.data : []}
-      isMine={profileData.userId == myId}
+      isMine={profileData.userId == userInfo?.userId}
     />
   );
 };

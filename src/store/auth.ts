@@ -1,12 +1,13 @@
+import { UserMbtiProfile } from "@/types/profile";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface AuthState {
   accessToken: string | null;
   isLoggedIn: boolean;
-  userId: string | null;
+  userInfo: UserMbtiProfile | null;
   setToken: (accessToken: string) => void;
-  setUserId: (userId: string) => void;
+  setUserInfo: (userInfo: UserMbtiProfile) => void;
   clearToken: () => void;
 }
 
@@ -28,21 +29,21 @@ const useAuthStore = create<AuthState>()(
     (set) => ({
       accessToken: null,
       isLoggedIn: false,
-      userId: null,
+      userInfo: null,
       setToken: (accessToken) =>
         set({
           accessToken,
           isLoggedIn: true,
         }),
-      setUserId: (userId) =>
+      setUserInfo: (userInfo) =>
         set({
-          userId,
+          userInfo, // 프로필 정보 저장
         }),
       clearToken: () =>
         set({
           accessToken: null,
           isLoggedIn: false,
-          userId: null,
+          userInfo: null,
         }),
     }),
     {
@@ -50,7 +51,7 @@ const useAuthStore = create<AuthState>()(
       partialize: (state) => ({
         accessToken: state.accessToken,
         isLoggedIn: state.isLoggedIn,
-        userId: state.userId,
+        userInfo: state.userInfo,
       }),
     }
   )

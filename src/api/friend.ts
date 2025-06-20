@@ -20,5 +20,5 @@ export const checkFriend = async (userId: string) => {
   const response = await api.get<CheckFriendRes>(
     `my/home/profile/friends?user_id=${userId}`
   );
-  return response.data;
+  return response.data.isFriend;
 };

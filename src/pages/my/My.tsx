@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useMyProfileQuery } from "@/hook/profile/useMyInfoQuery";
 import useAuthStore from "@/store/auth";
 
 import { Layout } from "@/components/layout/Layout";
@@ -8,25 +7,21 @@ import MyMbtiSettingCard from "@/components/card/myMbtiSettingsCard/MyMbtiSettin
 import "./my.scss";
 
 const My = () => {
-  const { isLoggedIn, clearToken } = useAuthStore();
-  const navitate = useNavigate();
-
-  const { data: profileData, isLoading } = useMyProfileQuery(isLoggedIn);
+  const { isLoggedIn, clearToken, userInfo } = useAuthStore();
+  const navigate = useNavigate();
 
   if (!isLoggedIn) {
-    navitate("/login");
+    navigate("/login");
     return null;
   }
-  if (isLoading || !profileData) {
+  if (!userInfo) {
     return <Loading />;
   }
 
   return (
     <Layout>
       <div className="title f-title2">나의 MBTiD</div>
-      {profileData && (
-        <MyMbtiSettingCard data={profileData} onLogout={clearToken} />
-      )}
+      <MyMbtiSettingCard data={userInfo} onLogout={clearToken} />
     </Layout>
   );
 };

@@ -6,5 +6,6 @@ export const useUserProfileQuery = (userId: string) => {
   return useSuspenseQuery<UserMbtiProfile>({
     queryKey: ["userProfile", userId],
     queryFn: () => fetchUserProfile(userId),
+    staleTime: 60000, // 1분동안 유효
   });
 };

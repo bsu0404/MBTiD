@@ -98,7 +98,7 @@ const GuestbookForm = () => {
           <div className="mbti-preview">
             {mbti.map((letter, idx) => (
               <span
-                key={idx}
+                key={`${letter}-${idx}`}
                 className={`mbti-letter f-title2 ${letter ? "selected" : ""}`}
               >
                 {letter}
@@ -107,22 +107,20 @@ const GuestbookForm = () => {
           </div>
           <div className="mbti-selector">
             {MBTI_GROUPS.map((group, groupIdx) => (
-              <div className="mbti-row " key={groupIdx}>
+              <div className="mbti-row " key={`group-${group.join("")}`}>
                 {group.map((letter) => (
-                  <>
-                    <button
-                      type="button"
-                      key={`${groupIdx}-${letter}`}
-                      className={
-                        mbti[groupIdx] === letter
-                          ? "mbti-button selected "
-                          : "mbti-button "
-                      }
-                      onClick={() => handleMbtiSelect(groupIdx, letter)}
-                    >
-                      <p className="f-body1">{letter}</p>
-                    </button>
-                  </>
+                  <button
+                    type="button"
+                    key={`${groupIdx}-${letter}`}
+                    className={
+                      mbti[groupIdx] === letter
+                        ? "mbti-button selected "
+                        : "mbti-button "
+                    }
+                    onClick={() => handleMbtiSelect(groupIdx, letter)}
+                  >
+                    <p className="f-body1">{letter}</p>
+                  </button>
                 ))}
               </div>
             ))}
