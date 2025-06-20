@@ -1,50 +1,65 @@
-# React + TypeScript + Vite
+# MBTiD
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MBTiD는 친구들과 함께 MBTI 명함을 만들어 공유하고, 친구들과 투표를 통해 서로에 대한 인식을 비교해보는 웹 서비스입니다.
 
-Currently, two official plugins are available:
+React + TypeScript 기반으로 구현되었으며, **상태 관리와 API 호출을 최적화하여 즉각적인 반응성과 불필요한 렌더링 제거에 집중했습니다.**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+<table width="100%">
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/b6c96f94-697a-4451-8706-d27e76e31efc" alt="screenshot 1" width="100%"/></td>
+    <td><img src="https://github.com/user-attachments/assets/d847e49d-b837-4058-b226-208271c48d7e" alt="screenshot 2" width="100%"/></td>
+  </tr>
+  <tr>
+     <td><img src="https://github.com/user-attachments/assets/4a926abf-a71a-4651-ba24-c9a0258a1804" alt="screenshot 3" width="100%"/></td>
+    <td><img src="https://github.com/user-attachments/assets/f2c2e306-dacf-4c71-9c04-751002d98424" alt="screenshot 4" width="100%"/></td>
+  </tr>
+</table>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+## 🚀 주요 기능
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- 🧠 간단한 MBTI 검사  
+- 🪪 결과 기반 명함 생성  
+- 👥 친구 명함 추가 및 확인  
+- 🗳️ 친구가 보는 나의 MBTI 투표 기능  
+- 📊 투표 결과 통계 시각화  
+- 🔗 QR 공유, 카카오톡 공유  
+- 📲 PWA 설치 지원
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+---
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## ⚙️ 기술 스택
+
+| 분류        | 기술                        |
+|-------------|-----------------------------|
+| UI          | **React 18** (with Vite)    |
+| 언어        | **TypeScript**              |
+| 상태 관리   | **Zustand**, **React Query** |
+| 스타일링    | SCSS                        |
+| 배포        | Vercel                      |
+| CI          | GitHub Actions              |
+
+---
+
+## 🧠 상태 관리 & 캐싱 전략
+
+MBTiD는 전역 상태(Zustand)와 서버 상태(React Query)를 분리해 관리하며,  
+불필요한 렌더링과 API 호출을 줄이기 위해 다음과 같은 전략을 사용했습니다:
+
+| 항목         | 사용 도구             | 전략 요약                                      |
+|--------------|------------------------|------------------------------------------------|
+| 로그인 정보   | Zustand                | 전역 저장, 항상 유지                           |
+| 프로필 정보   | React Query → Zustand  | staleTime: 30분, shallow 비교 후 Zustand 저장   |
+| 친구 목록     | React Query            | staleTime: 30분, gcTime: 1시간                 |
+| 투표 결과     | React Query            | staleTime: 0, refetchOnFocus: true             |
+
+추가로,  
+- `React.memo`를 통해 동일 props 전달 시 재렌더링 방지  
+- `shallow` 비교로 상태 업데이트 여부를 선별  
+- `setQueryData()`를 활용해 UX 반응성을 높임
+
+
+
